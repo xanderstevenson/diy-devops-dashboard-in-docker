@@ -1,8 +1,10 @@
-<h1 align="center">Do-It-Yourself (DIY) DevOps Dashboard<h1>
+<h1 align="center">Do-It-Yourself (DIY) DevOps Dashboard in Docker<h1>
 
 <p align="center"><img src="https://github.com/xanderstevenson/diy-devops-dashboard/assets/27918923/3fa23d01-5f42-42a2-98ff-50aba621be3f"></p>
 
 ## Description
+
+_A duplicate of this project exists, but which runs without a Docker container. That project can be found at [diy-devops-dashboard](https://github.com/xanderstevenson/diy-devops-dashboard/tree/main). The reason I created the version that runs without the Docker container is that I was having issues getting this one, with Docker, to pass the vulnerability scanning for acceptance as a Cisco Code Exchange repo._
 
 I made this project as a way for those new to DevOps to get started with the basic technologies invlolved. It requires setting up the basic accounts and then provides the user with an all-in-one place to see their progress and to better understand how these different tools interact in the DevOps lifecycle.
 
@@ -106,10 +108,6 @@ Both actions reload the data to be presented.
 <br>
 
 - More blocks for additional tools can be added to [templates/index.html](https://github.com/xanderstevenson/diy-devops-dashboard/blob/main/templates/index.html) and a additional functions would need to be added to [app.py](https://github.com/xanderstevenson/diy-devops-dashboard/blob/main/app.py)
-
-<br>
-
-- A duplicate of this project exists, but which runs entirely in a Docker container. That project can be found at. The reason I created this version that runs without the Docker container is that I was having issues getting it to pass the vulnerability scanning for acceptance as a Cisco Code Exchange repo.
 
 <br>
 
