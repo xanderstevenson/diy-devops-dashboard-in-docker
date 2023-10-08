@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>DIY DevOps Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+
+<body>
+    <div id="header-space">
+        <nav class="navbar">
+            <div class="burger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+            <ul class="menu" id="menu">
+                <li class="webex-button"><button onclick="postToWebex()">Post to Webex</button></li>
+            </ul>
+        </nav>
+        <h1 id="devops-dash" class="center-this">DIY DevOps Dashboard</h1>
+        <span class="center-this"><button id="refreshButton">Refresh</button></span>
+    </div>
+    <div class="dashboard">
+        <span>
+            <h2 class="center-this light-text">GitHub Repos</h2>
+            <div class="dashboard-box repo-list-container github">
+                <ul class="repo-list">
+                    {% if repositories %}
+                    {% for repo in repositories %}
+                    <li class="one-px-border mini-box-background">
+                        <h3><a href="{{ repo.url }}" target="_blank">{{ repo.name }}</a></h3>
+                        <p style="padding-bottom: 2px"><span class="blue-text">Latest Commit:
+                            </span>{{ repo.latest_commit_date }}</p>
+                    </li>
+                    {% endfor %}
+                    {% else %}
+                    <li>No GitHub data available</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </span>
+        <span>
+            <h2 class="center-this light-text">Docker Containers</h2>
+            <div class="dashboard-box center-this docker">
+                {% if docker_data %}
+                {% for container in docker_data %}
+                <ul class="repo-list one-px-border" style="padding-top: 5px;">
+                    <h3>
+                        <li class="container-name">{{ container.name }}</a>
+                        </li>
+                    </h3>
+                    <li>{{ container.container_id }}</li>
+                    <li> State: <span
+                            class="bottom-pad container-text-box {% if container.status == 'running' %}status-running{% else %}status-exited{% endif %}">
+                            {{ container.status }}</span></li>
+                    <!-- Add more container information as needed -->
+                </ul>
+                {% endfor %}
+                {% else %}
+                <p>No Docker data available</p>
+                {% endif %}
+
+            </div>
+        </span>
+        <span>
+            <h2 class="center-this light-text">GitLab Projects</h2>
+            <div class="dashboard-box center-this gitlab">
+                <ul class="repo-list">
+                    {% if gitlab_data %}
+                    {% for project in gitlab_data %}
+                    <li class="one-px-border">
+                        <h3><a href="{{ project['web_url'] }}" target="_blank">{{ project["name"] }}</a></h3>
+                        <p>Last Activity: {{ project["last_activity_at_mdy"] }}</p>
+                        <p style="margin-top: -15px">{{ project["last_activity_at_hms"] }}</p>
+                    </li>
+                    {% endfor %}
+                    {% else %}
+                    <li>No GitLab data available</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </span>
+        <span>
+            <h2 class="center-this light-text">Jenkins Builds</h2>
+            <div class="dashboard-box center-this jenkins">
+                {% if jenkins_data %}
+                <!-- Display Jenkins build status -->
+                {% for build in jenkins_data.jobs %}
+                <div class="one-px-border bottom-pad" style="margin-bottom: 5px;">
+                    <h3><a href="{{ build.url }}" target="_blank">{{ build.name }}</a>
+                    </h3>
+                    <!-- Set the text color based on the build color -->
+                    <p class="bottom-pad container-text-box">Status: <span
+                            style="color: {{ build.color }};">{{ build.color }}</span>
+                    </p>
+                    <!-- Add more build information as needed -->
+                </div>
+                {% endfor %}
+                {% else %}
+                <p>No Jenkins data available.</p>
+                {% endif %}
+            </div>
+        </span>
+        <span>
+            <h2 class="center-this light-text">Terraform Resources</h2>
+            <div class="dashboard-box center-this terraform">
+                {% if terraform_data %}
+                {% for org in terraform_data %}
+                <ul class="repo-list one-px-border">
+                    <p>
+                        <h3 class="container-name"><span class="blue-text">Org: </span>{{ org.id }}</h3>
+                    </p>
+                    <h4 class="blue-text">Workspaces:</h4>
+                    <ul class="repo-list">
+                        {% for workspace in org.workspaces %}
+                        <li>
+                            <a href="https://app.terraform.io/app/{{ org.id }}/workspaces/{{ workspace.attributes.name }}"
+                                target="_blank">{{ workspace.attributes.name }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <!-- Add more container information as needed -->
+                </ul>
+                {% endfor %}
+                {% else %}
+                <p>No Terraform data available</p>
+                {% endif %}
+            </div>
+        </span>
+        </span>
+        <span>
+            <h2 class="center-this light-text">Elasticsearch</h2>
+            <div class="dashboard-box center-this elastic">
+                {% if elastic_data %}
+                {% for deployment in elastic_data.deployments %}
+                <ul class="repo-list one-px-border">
+                    <p>
+                        <h3 class="container-name"><span class="blue-text">Deployment: </span>{{ deployment.name }}</h3>
+                    </p>
+                    <h4 class="blue-text">Resources:</h4>
+                    <ul class="repo-list">
+                        {% for resource in deployment.resources %}
+                        <li>
+                            <p></p>{{ resource.ref_id }}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <!-- Add more container information as needed -->
+                </ul>
+                {% endfor %}
+                {% else %}
+                <p>No Elasticsearch data available</p>
+                {% endif %}
+            </div>
+        </span>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.0/html2canvas.min.js"></script>
+    <script>
+        // Refresh the page every 5 minutes (300,000 milliseconds)
+        setInterval(function () {
+            location.reload();
+        }, 300000);
+
+        // Handle refresh button click
+        const refreshButton = document.getElementById('refreshButton');
+        refreshButton.addEventListener('click', function () {
+            location.reload();
+        });
+    </script>
+    <script>
+        function postToWebex() {
+            fetch("/post_to_webex")
+                .then(response => {
+                    if (response.ok) {
+                        console.log("Data posted to Webex Teams");
+                        hideButtonAndMenus();
+                    } else {
+                        console.error("Failed to post data to Webex Teams");
+                    }
+                })
+                .catch(error => {
+                    console.error("Failed to post data to Webex Teams:", error);
+                });
+        }
+
+    </script>
+
+</body>
+
+</html>

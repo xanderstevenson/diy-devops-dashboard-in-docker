@@ -1,0 +1,288 @@
+body {
+  background-color: #0b1436;
+  margin: 0;
+  padding: 0;
+  height: 100vh; /* Make the body take up the full viewport height */
+  position: relative;
+  padding-top: 5px;
+}
+
+body::before {
+  content: "";
+  background-image: url("devops-lifecycle.png"); /* Replace 'your-image.jpg' with your image path */
+  background-size: cover; /* Scale the image to cover the entire body */
+  background-position: center center; /* Center the image */
+  opacity: 0.1; /* Set the opacity (0.0 - 1.0) */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Place it behind other content */
+}
+
+.webex-button {
+  background-color: #e9eff1;
+  padding: 5px;
+}
+
+h3 {
+  font-weight: bold;
+  color: rgb(63, 63, 63);
+}
+
+h3 a {
+  color: rgb(63, 63, 63);
+  font-weight: normal;
+}
+
+li h3 a {
+  color: rgb(63, 63, 63);
+  font-weight: normal;
+}
+
+a {
+  border: 1px outset;
+  text-decoration: none;
+  padding: 4px;
+  font-weight: normal;
+  background: rgb(171, 193, 212, 0.5);
+  line-height: 1.75;
+  color: rgb(63, 63, 63);
+}
+
+.blue-text {
+  color: rgb(30, 66, 172);
+  font-weight: bold;
+}
+
+.one-px-border {
+  border: 1px solid rgba(34, 43, 55, 0.3);
+  background-color: rgba(46, 102, 182, 0.1);
+}
+
+.one-px-border p h3 ul li {
+  color: black;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  position: relative;
+}
+
+.line {
+  width: 30px;
+  height: 4px;
+  background-color: #808080;
+  margin-bottom: 3px;
+  border: 1px outset black;
+}
+
+.menu {
+  display: none;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ddd;
+  z-index: 1;
+  min-width: 75px;
+  height: 30px;
+  opacity: 0.5; /* adjust the opacity as needed */
+}
+
+.menu li {
+  margin-bottom: 10px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+  display: block;
+  padding: 5px 0;
+}
+
+.menu.show {
+  display: block;
+}
+
+#header-space {
+  border: 2px ridge #c9c0bb;
+  height: 93px;
+  width: 100%;
+  padding-top: 0px auto;
+  margin-top: -10px;
+  background-image: url("sky.jpeg");
+  background-size: cover; /* Adjusts the image size to cover the container */
+}
+
+#devops-dash {
+  border: 2px solid #c9c0bb;
+  background: linear-gradient(to bottom, #ffffff, #99b8d2);
+  padding: 10px;
+  width: 400px;
+  color: #2a2a44;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 2px 4px rgba(81, 81, 73, 0.5);
+  margin-top: -43px;
+  margin-bottom: 3px;
+  text-align: center;
+  font-family: Georgia, serif;
+}
+
+.center-this {
+  text-align: center;
+  display: block;
+  align-content: center;
+  margin: 0px auto;
+}
+
+#refreshButton {
+  margin-bottom: 3px;
+  background: #d4e2eb;
+  border: 1px ridge #c9c0bb;
+  color: #565451;
+}
+
+.light-text {
+  border: 1px solid rgb(230, 223, 223);
+  width: 250px;
+  background: #d4e2eb;
+  color: #2a2a44;
+  border: 2px solid #ccc;
+}
+
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0px auto;
+  padding: 10px;
+  max-width: 900px;
+  align-content: center;
+}
+
+.dashboard a {
+  color: black;
+  font-weight: 600;
+}
+
+.repo-list-container {
+  width: 250px;
+  height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  word-wrap: break-word;
+  margin: 10px;
+}
+
+.repo-list {
+  list-style: none;
+  padding: 0;
+}
+
+.repo-list li {
+  margin-bottom: 10px;
+}
+
+.bottom-pad {
+  padding-bottom: 5px;
+}
+
+.dashboard-box {
+  width: 250px;
+  height: 300px;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+  align-content: center;
+  background-color: #e9eff1;
+  border: 2px ridge #e5e4e2;
+  overflow-y: auto;
+  word-wrap: break-word;
+  list-style: none;
+}
+
+.status-running {
+  color: green;
+}
+
+.status-exited {
+  color: red; /* You can choose any color you prefer */
+}
+
+.container-name {
+  font-size: large;
+  font-weight: bold;
+  color: rgb(14, 14, 14);
+}
+
+.container-text-box {
+  padding: 3px;
+  width: 75px;
+  align-content: center;
+  margin: 0px auto;
+}
+
+.github,
+.docker,
+.jenkins,
+.gitlab,
+.terraform,
+.elastic {
+  position: relative;
+}
+
+.github::before,
+.docker::before,
+.jenkins::before,
+.gitlab::before,
+.terraform::before,
+.elastic::before {
+  content: "";
+  opacity: 0.07; /* adjust the opacity as needed */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: contain; /* adjust to 'cover' if you want the image to fill the box */
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none; /* This line makes the pseudo-elements non-clickable */
+  /* background-attachment: ; */
+}
+
+.github::before {
+  background-image: url("github.png");
+}
+
+.docker::before {
+  background-image: url("docker.png");
+}
+
+.jenkins::before {
+  background-image: url("jenkins.png");
+}
+
+.gitlab::before {
+  background-image: url("gitlab.png");
+}
+
+.terraform::before {
+  background-image: url("terraform.png");
+}
+
+.elastic::before {
+  background-image: url("elasticsearch.png");
+}
